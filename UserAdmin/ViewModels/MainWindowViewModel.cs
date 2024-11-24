@@ -12,9 +12,8 @@ public partial class MainWindowViewModel : ViewModelBase
     public ObservableCollection<Person> People { get; }
 
     public ObservableCollection<string> NewAccessLevels { get; } = new(DefaultAccessLevels);
-    
-    [ObservableProperty]
-    [NotifyCanExecuteChangedFor(nameof(DeleteUserCommand))]
+
+    [ObservableProperty] [NotifyCanExecuteChangedFor(nameof(DeleteUserCommand))]
     private Person? _selectedPerson;
 
     [ObservableProperty] private string _newFirstName = string.Empty;
@@ -22,8 +21,10 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty] private string _newLogin = string.Empty;
     [ObservableProperty] private string _newPassword = string.Empty;
     [ObservableProperty] private string _newEmail = string.Empty;
-    [ObservableProperty] private string _newAccessLevel = DefaultAccessLevels[2];  
+    [ObservableProperty] private string _newAccessLevel = DefaultAccessLevels[2];
     [ObservableProperty] private string _newUserNote = string.Empty;
+
+    [ObservableProperty] private string _errorMessage = string.Empty;
 
     private static readonly Faker Faker = new();
 
@@ -33,7 +34,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         People = new ObservableCollection<Person>(GenerateInitialPeople());
     }
-    
+
     [RelayCommand(CanExecute = nameof(CanDeleteUser))]
     private void DeleteUser()
     {
@@ -45,11 +46,50 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void AddUser()
     {
+        if (!ValidateNewUserFields())
+        {
+            ErrorMessage = "All fields must be filled to create a new user.";
+            return;
+        }
+
         Person newUser = new(NewFirstName, NewLastName, NewLogin, NewPassword, NewEmail, NewAccessLevel, NewUserNote);
         People.Add(newUser);
         ResetNewUserProperties();
+        ErrorMessage = string.Empty;
     }
     
+    private bool ValidateNewUserFields()
+    {
+        return !string.IsNullOrWhiteSpace(NewFirstName) &&
+               !string.IsNullOrWhiteSpace(NewLastName) &&
+               !string.IsNullOrWhiteSpace(NewLogin) &&
+               !string.IsNullOrWhiteSpace(NewPassword) &&
+               !string.IsNullOrWhiteSpace(NewEmail);
+    }
+
+    private void ResetNewUserProperties()
+    {
+        NewFirstName = string.Empty;
+        NewLastName = string.Empty;
+        NewLogin = string.Empty;
+        NewPassword = string.Empty;
+        NewEmail = string.Empty;
+        NewAccessLevel = DefaultAccessLevels[2];
+        NewUserNote = string.Empty;
+    }
+
+    private List<Person> GenerateInitialPeople()
+    {
+        var people = new List<Person>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            people.Add(GenerateRandomPerson());
+        }
+
+        return people;
+    }
+
     private Person GenerateRandomPerson()
     {
         string firstName = Faker.Name.FirstName();
@@ -63,28 +103,5 @@ public partial class MainWindowViewModel : ViewModelBase
         return new Person(firstName, lastName, login, password, email, accessLevel, userNote);
     }
 
-    private List<Person> GenerateInitialPeople()
-    {
-        var people = new List<Person>();
-       
-        for (int i = 0; i < 3; i++)
-        {
-            people.Add(GenerateRandomPerson());
-        }
-
-        return people;
-    }
-
-    private void ResetNewUserProperties()
-    {
-        NewFirstName = string.Empty;
-        NewLastName = string.Empty;
-        NewLogin = string.Empty;
-        NewPassword = string.Empty;
-        NewEmail = string.Empty;
-        NewAccessLevel = DefaultAccessLevels[1];
-        NewUserNote = string.Empty;
-    }
-    
     private bool CanDeleteUser() => SelectedPerson != null;
 }
