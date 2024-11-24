@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="UserAdmin/App.axaml" value="UserAdmin/UserAdmin.csproj" />
+        <entry key="UserAdmin/UserControl1.axaml" value="UserAdmin/UserAdmin.csproj" />
+        <entry key="UserAdmin/Views/MainWindow.axaml" value="UserAdmin/UserAdmin.csproj" />
+      </map>
+    </option>
+  </component>
+</project>

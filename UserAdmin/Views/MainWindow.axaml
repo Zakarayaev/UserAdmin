@@ -1,0 +1,146 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:UserAdmin.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="650"
+        x:Class="UserAdmin.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="UserAdmin">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+    
+    <Window.Styles>
+        <Style Selector="DataGridRow:pointerover">
+            <Setter Property="Background" Value="LightSkyBlue"/>
+        </Style>
+        <Style Selector="DataGridRow:selected">
+            <Setter Property="Background" Value="Aqua"/>
+        </Style>
+        <Style Selector="DataGridColumnHeader">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+    
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="BorderBrush" Value="#4D4D4D"/>
+            <Setter Property="CaretBrush" Value="#E0E0E0"/>
+        </Style>
+        <Style Selector="TextBox:focus">
+            <Setter Property="Background" Value="Green"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="#888888"/>
+            <Setter Property="CaretBrush" Value="Black"/>
+        </Style>
+    </Window.Styles>
+    
+    <Window.Background>
+        <SolidColorBrush Color="#1A1A1A"/>
+    </Window.Background>
+    
+    <StackPanel Margin="20">
+        <DataGrid x:Name="DataGrid"
+                  Margin="0,0,0,15"
+                  ItemsSource="{Binding People}"
+                  SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"
+                  VerticalScrollBarVisibility="Auto"
+                  Height="290"
+                  CanUserResizeColumns="True"
+                  CanUserSortColumns="True"
+                  Background="#1E1E1E"
+                  RowBackground="#1E1E1E"
+                  Foreground="WhiteSmoke"
+                  BorderBrush="Gray">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First Name" MinWidth="120" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last Name" MinWidth="120" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Login" MinWidth="150" Binding="{Binding Login}" />
+                <DataGridTextColumn Header="Password" MinWidth="180" Binding="{Binding Password}" />
+                <DataGridTextColumn Header="E-mail" MinWidth="250" Binding="{Binding Email}" />
+    
+                <DataGridTemplateColumn Header="Access Level">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ComboBox ItemsSource="{Binding AccessLevels}"
+                                      SelectedItem="{Binding AccessLevel, Mode=TwoWay}"
+                                      Background="#333333"
+                                      Foreground="White"
+                                      BorderBrush="Gray"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Stretch" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+    
+                <DataGridTemplateColumn Header="User Notes" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding UserNotes, Mode=TwoWay}"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     Height="50"
+                                     HorizontalAlignment="Stretch"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Margin="0,10,0,15">
+            <TextBox Watermark="First Name" Text="{Binding NewFirstName, Mode=TwoWay}" Margin="5" Width="100" BorderBrush="Gray"/>
+            <TextBox Watermark="Last Name" Text="{Binding NewLastName, Mode=TwoWay}" Margin="5" Width="100" BorderBrush="Gray"/>
+            <TextBox Watermark="Login" Text="{Binding NewLogin, Mode=TwoWay}" Margin="5" Width="100" BorderBrush="Gray"/>
+            <TextBox Watermark="Password" Text="{Binding NewPassword, Mode=TwoWay}" Margin="5" Width="100" BorderBrush="Gray"/>
+            <TextBox Watermark="Email" Text="{Binding NewEmail, Mode=TwoWay}" Margin="5" Width="150" BorderBrush="Gray"/>
+            <ComboBox ItemsSource="{Binding NewAccessLevels}"
+                      SelectedItem="{Binding NewAccessLevel, Mode=TwoWay}"
+                      PlaceholderText="Select Access Level"
+                      Margin="5"
+                      Width="120"
+                      Background="#1a1a1a"
+                      Foreground="DarkGray"
+                      BorderBrush="Gray"/>
+            <TextBox Watermark="User Notes"
+                     Text="{Binding NewUserNote, Mode=TwoWay}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     Height="30"
+                     Width="150"
+                     BorderBrush="Gray"
+                     Margin="5"/>
+        </StackPanel>
+    
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <Button Command="{Binding AddUserCommand}"
+                    Background="#4CAF50"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    Margin="5,0"
+                    Width="100"
+                    HorizontalAlignment="Center"
+                    Padding="8,4">
+                <TextBlock Text="Add User"
+                           TextAlignment="Center"/>
+            </Button>
+            <Button Command="{Binding DeleteUserCommand}"
+                    Background="#E53935"
+                    Foreground="White"
+                    BorderBrush="Transparent"
+                    Margin="5,0"
+                    Width="100"
+                    HorizontalAlignment="Center"
+                    Padding="8,4">
+                <TextBlock Text="Delete User"
+                           TextAlignment="Center"/>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>
