@@ -4,6 +4,7 @@
     <option name="projectPerEditor">
       <map>
         <entry key="UserAdmin/App.axaml" value="UserAdmin/UserAdmin.csproj" />
+        <entry key="UserAdmin/EventSetter.axaml" value="UserAdmin/UserAdmin.csproj" />
         <entry key="UserAdmin/UserControl1.axaml" value="UserAdmin/UserAdmin.csproj" />
         <entry key="UserAdmin/Views/MainWindow.axaml" value="UserAdmin/UserAdmin.csproj" />
       </map>
