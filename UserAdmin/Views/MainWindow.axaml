@@ -25,7 +25,6 @@
             <Setter Property="Background" Value="#333333"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
-    
         <Style Selector="DataGridRow:pointerover TextBox">
             <Setter Property="Background" Value="BlueViolet"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
@@ -34,22 +33,17 @@
             <Setter Property="Background" Value="#1c69d7"/>
             <Setter Property="Foreground" Value="Black"/>
         </Style>
-    
         <Style Selector="DataGridRow:selected ComboBox">
             <Setter Property="Background" Value="BlueViolet"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
         </Style>
-    
         <Style Selector="TextBox">
             <Setter Property="Background" Value="#1E1E1E"/>
             <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="BorderBrush" Value="#4D4D4D"/>
-            <Setter Property="CaretBrush" Value="#E0E0E0"/>
         </Style>
         <Style Selector="TextBox:focus">
-            <Setter Property="Background" Value="Green"/>
             <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="BorderBrush" Value="#888888"/>
             <Setter Property="CaretBrush" Value="Black"/>
         </Style>
     </Window.Styles>
@@ -63,6 +57,7 @@
                   Height="290"
                   CanUserResizeColumns="True"
                   CanUserSortColumns="True"
+                  Background="#1E1E1E"
                   RowBackground="#1E1E1E"
                   Foreground="WhiteSmoke"
                   BorderBrush="Gray">
