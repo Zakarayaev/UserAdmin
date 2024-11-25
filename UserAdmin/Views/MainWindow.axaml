@@ -12,17 +12,32 @@
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
+
+    <Window.Background>
+        <SolidColorBrush Color="#1A1A1A"/>
+    </Window.Background>
     
     <Window.Styles>
         <Style Selector="DataGridRow:pointerover">
-            <Setter Property="Background" Value="LightSkyBlue"/>
-        </Style>
-        <Style Selector="DataGridRow:selected">
-            <Setter Property="Background" Value="Aqua"/>
+            <Setter Property="Background" Value="BlueViolet"/>
         </Style>
         <Style Selector="DataGridColumnHeader">
             <Setter Property="Background" Value="#333333"/>
             <Setter Property="Foreground" Value="White"/>
+        </Style>
+    
+        <Style Selector="DataGridRow:pointerover TextBox">
+            <Setter Property="Background" Value="BlueViolet"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+        </Style>
+        <Style Selector="DataGridRow:selected TextBox">
+            <Setter Property="Background" Value="#1c69d7"/>
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    
+        <Style Selector="DataGridRow:selected ComboBox">
+            <Setter Property="Background" Value="BlueViolet"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
         </Style>
     
         <Style Selector="TextBox">
@@ -39,10 +54,6 @@
         </Style>
     </Window.Styles>
     
-    <Window.Background>
-        <SolidColorBrush Color="#1A1A1A"/>
-    </Window.Background>
-    
     <StackPanel Margin="20">
         <DataGrid x:Name="DataGrid"
                   Margin="0,0,0,15"
@@ -52,7 +63,6 @@
                   Height="290"
                   CanUserResizeColumns="True"
                   CanUserSortColumns="True"
-                  Background="#1E1E1E"
                   RowBackground="#1E1E1E"
                   Foreground="WhiteSmoke"
                   BorderBrush="Gray">
@@ -77,14 +87,16 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
     
-                <DataGridTemplateColumn Header="User Notes" Width="*">
+                <DataGridTemplateColumn Header="User Notes" 
+                                        Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBox Text="{Binding UserNotes, Mode=TwoWay}"
                                      AcceptsReturn="True"
                                      TextWrapping="Wrap"
                                      Height="50"
-                                     HorizontalAlignment="Stretch"/>
+                                     HorizontalAlignment="Stretch">
+                            </TextBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -105,7 +117,7 @@
                       PlaceholderText="Select Access Level"
                       Margin="5"
                       Width="120"
-                      Background="#1a1a1a"
+                      Background="#1E1E1E"
                       Foreground="DarkGray"
                       BorderBrush="Gray"/>
             <TextBox Watermark="User Notes"
@@ -146,6 +158,5 @@
                            TextAlignment="Center"/>
             </Button>
         </StackPanel>
-        
     </StackPanel>
 </Window>
